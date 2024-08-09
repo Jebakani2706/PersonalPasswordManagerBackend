@@ -55,7 +55,7 @@ namespace PersonalPasswordManager.Repository
         public async Task<bool> DeletePassword(int passwordManagerId)
         {
             PasswordManager? password = GetPassword(passwordManagerId);
-            if (password != null)
+            if (password == null)
             {
                 return false;
             }
