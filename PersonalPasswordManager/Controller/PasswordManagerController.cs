@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using PersonalPasswordManager.ModelView;
 using PersonalPasswordManager.Service;
+using EncryptionDecryption = PersonalPasswordManager.CommonFunctions.EncryptionDecryption;
 
 namespace PersonalPasswordManager.Controller
 {
@@ -60,7 +61,11 @@ namespace PersonalPasswordManager.Controller
         {
             try
             {
-                PasswordManager? password = _passwordManagerService.GetPassword(id);
+                PasswordManagerView? password = _passwordManagerService.GetPassword(id);
+                if(decrypt == true && password != null)
+                {
+                    password.DecryptedPassword = EncryptionDecryption.DecryptString(password.EncryptedPassword ?? "");
+                }
                 return Ok(new
                 {
                     StatusCode = "SUCCESS",
@@ -98,6 +103,7 @@ namespace PersonalPasswordManager.Controller
         {
             try
             {
+                passwordManagerView.EncryptedPassword = EncryptionDecryption.EncryptString(passwordManagerView.DecryptedPassword);
                 int passwordId = await _passwordManagerService.AddPassword(passwordManagerView);
                 if(passwordId > 0)
                 {
@@ -146,6 +152,7 @@ namespace PersonalPasswordManager.Controller
         {
             try
             {
+                passwordManagerView.EncryptedPassword = EncryptionDecryption.EncryptString(passwordManagerView.DecryptedPassword);
                 int passwordId = await _passwordManagerService.UpdatePassword(passwordManagerView);
                 if (passwordId > 0)
                 {

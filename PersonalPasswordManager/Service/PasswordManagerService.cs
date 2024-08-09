@@ -17,9 +17,18 @@ namespace PersonalPasswordManager.Service
             return _passwordManagerRepository.GetAllPassword();
         }
 
-        public PasswordManager? GetPassword(int passwordManagerId)
+        public PasswordManagerView? GetPassword(int passwordManagerId)
         {
-            return _passwordManagerRepository.GetPassword(passwordManagerId);
+            PasswordManager? passwordManager = _passwordManagerRepository.GetPassword(passwordManagerId);
+            PasswordManagerView? passwordManagerView = passwordManager == null ? null : new PasswordManagerView()
+            {
+                PasswordManagerId = passwordManagerId,
+                EncryptedPassword = passwordManager.EncryptedPassword,
+                UserName = passwordManager.UserName,
+                Category = passwordManager.Category,
+                App = passwordManager.App
+            };
+            return passwordManagerView;
         }
 
         public async Task<int> AddPassword(PasswordManagerView passwordManager)
