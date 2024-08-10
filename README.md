@@ -166,6 +166,9 @@ docker-compose up
 }
 ```
 
+## Documentation 
+**Swagger:** Access the API documentation at https://localhost:44348/swagger/index.html
+
 
 
 
