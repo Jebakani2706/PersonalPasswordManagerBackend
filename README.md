@@ -3,47 +3,46 @@
 
 This backend API, built with C# .NET 6, provides endpoints for managing encrypted passwords. The API communicates with a SQL Server database, which is hosted in a Docker container. The passwords are stored encrypted using Base64 encoding.
 
-## Technology
-- **Language/Framework**: C# .NET 6
-- **Database**: SQL Server (hosted in Docker)
-- **ORM**: Entity Framework Core (Database-first approach)
 
+## Tech Stack
 
-## Setup
+- **.NET 7**: Framework for building the web API.
+- **Entity Framework Core**: ORM for database operations.
+- **SQL Server**: Database system, hosted in a Docker container.
+- **Swashbuckle.AspNetCore**: For API documentation with Swagger.
+
+## Setup Instructions
 
 ### Prerequisites
 
-- [.NET 6 SDK](https://dotnet.microsoft.com/download/dotnet/6.0)
-- [Docker](https://www.docker.com/products/docker-desktop)
+- [.NET 7 SDK](https://dotnet.microsoft.com/download)
+- [Docker](https://www.docker.com/products/docker-desktop) (for SQL Server container)
+- [Visual Studio]([https://visualstudio.microsoft.com/]) or another preferred code editor
 
-### 1. Clone the Repository
+### Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/backend-repository.git
-cd backend-repository
+git clone <repository-url>
+cd PasswordManager
 ```
-
 ### 2. Set Up SQL Server with Docker
 Docker-compose.yml file containes the SQL Server docker information.
 
 ```bash
 docker-compose up
 ```
+### 3. Create Database and Table 
+ Connect the SQL Server in visual studio and Run the PasswordManagerTableCreate.sql script to create new database and password.
+ 
+#### 4. Set Up Database
 
-#### 3. Set Up Database
-
-- **Update Connection String:** Modify appsettings.json to include your SQL Server connection 
+- **Update Connection String:** Modify appsettings.development.json to include your SQL Server connection 
 
 ```json
  "ConnectionStrings": {
-   "ConnectionString": "Data Source=localhost,1433;Initial Catalog=PersonalPasswordManager;User ID=sa;Password=YourStrong!Passw0rd;Trust Server Certificate=True"
+   "ConnectionString": "Data Source=localhost,1433;Initial Catalog=PersonalPasswordManager;User ID=sa;Password=Passw0rd!Manager;Trust Server Certificate=True"
  }
 ```
-
-
-
-
-
 
 ## API Reference
 
@@ -165,9 +164,18 @@ docker-compose up
   "data": true
 }
 ```
+### Testing
+Unit tests are written for critical service methods and data operations. 
 
 ## Documentation 
 **Swagger:** Access the API documentation at https://localhost:44348/swagger/index.html
+
+
+## Acknowledgments
+- **.NET Team**: For developing the .NET 6 framework, which powers this project.
+- **Microsoft**: For providing the SQL Server and Entity Framework Core, which are integral to our data handling.
+- **Swashbuckle Team**: For the Swashbuckle.AspNetCore library, which enables seamless API documentation with Swagger.
+- **Docker Team**: For the Docker platform, which simplifies containerizing and managing SQL Server instances.
 
 
 
